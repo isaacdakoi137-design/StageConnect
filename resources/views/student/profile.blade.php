@@ -11,7 +11,9 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('student.profile.store') }}">
+        <form method="POST"
+            action="{{ route('student.profile.store') }}"
+            enctype="multipart/form-data">
             @csrf
 
             <div class="mb-4">
@@ -55,6 +57,20 @@
                 <textarea name="bio"
                           rows="5"
                           class="w-full border rounded p-2"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label class="block font-medium">Photo de profil</label>
+                <input type="file"
+                    name="photo"
+                    class="w-full border rounded p-2">
+            </div>
+
+            <div class="mb-4">
+                <label class="block font-medium">CV PDF</label>
+                <input type="file"
+                    name="cv"
+                    class="w-full border rounded p-2">
             </div>
 
             <button

@@ -10,11 +10,13 @@ class StudentController extends Controller
 {
     public function create()
     {
-        return view('student.profile');
+        $student = Auth::user()->student;
+
+        return view('student.profile', compact('student'));
     }
 
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'phone' => 'nullable|string|max:20',
             'city' => 'nullable|string|max:255',
@@ -22,12 +24,17 @@ class StudentController extends Controller
             'level' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
             'bio' => 'nullable|string',
+            'skills' => 'nullable|string',
+            'projects' => 'nullable|string',
+            'experiences' => 'nullable|string',
+            'certifications' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
             'cv' => 'nullable|mimes:pdf|max:5120',
         ]);
 
-        $photoPath = null;
-        $cvPath = null;
+        $student = Student::firstOrNew(['user_id' => Auth::id()]);
+        $photoPath = $student->photo;
+        $cvPath = $student->cv;
 
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')
@@ -39,23 +46,25 @@ class StudentController extends Controller
                 ->store('students/cv', 'public');
         }
 
-        Student::updateOrCreate(
-            ['user_id' => Auth::id()],
-            [
-                'phone' => $request->phone,
-                'birth_date' => $request->birth_date,
-                'city' => $request->city,
-                'school' => $request->school,
-                'level' => $request->level,
-                'bio' => $request->bio,
-                'photo' => $photoPath,
-                'cv' => $cvPath,
-            ]
-        );
+        $student->fill([
+            'phone' => $request->phone,
+            'birth_date' => $request->birth_date,
+            'city' => $request->city,
+            'school' => $request->school,
+            'level' => $request->level,
+            'bio' => $request->bio,
+            'skills' => $request->skills,
+            'projects' => $request->projects,
+            'experiences' => $request->experiences,
+            'certifications' => $request->certifications,
+            'photo' => $photoPath,
+            'cv' => $cvPath,
+        ]);
 
-        return redirect()->back()->with(
-            'success',
-            'Profil enregistré avec succès'
-        );
+        $student->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Profil enregistré avec succès');
     }
 }

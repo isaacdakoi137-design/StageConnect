@@ -14,6 +14,10 @@ class Student extends Model
         'school',
         'level',
         'bio',
+        'skills',
+        'projects',
+        'experiences',
+        'certifications',
         'cv',
         'photo'
     ];

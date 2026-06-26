@@ -10,15 +10,20 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-white shadow rounded p-6">
-                <h2 class="text-xl font-semibold">Offres publiees</h2>
-                <p class="text-3xl text-blue-600 mt-2">{{ $offersCount }}</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">Offres publiées</h2>
+                <p class="text-3xl font-black text-blue-600 dark:text-blue-400 mt-2">{{ $offersCount }}</p>
             </div>
 
-            <div class="bg-white shadow rounded p-6">
-                <h2 class="text-xl font-semibold">Candidatures recues</h2>
-                <p class="text-3xl text-green-600 mt-2">{{ $applicationsCount }}</p>
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">Candidatures reçues</h2>
+                <p class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-2">{{ $applicationsCount }}</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">Temps moyen de recrutement</h2>
+                <p class="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-2">{{ $avgRecruitmentTime }} jours</p>
             </div>
         </div>
 

@@ -48,7 +48,7 @@ class User extends Authenticatable
         ];
     }
 
-        public function student()
+    public function student()
     {
         return $this->hasOne(Student::class);
     }
@@ -56,5 +56,40 @@ class User extends Authenticatable
     public function applications()
     {
         return $this->hasMany(Application::class);
+    }
+
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class)->latest();
+    }
+
+    public function stages()
+    {
+        return $this->hasMany(Stage::class, 'student_id');
+    }
+
+    public function supervisedStages()
+    {
+        return $this->hasMany(Stage::class, 'supervisor_id');
     }
 }

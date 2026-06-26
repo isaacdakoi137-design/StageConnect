@@ -17,12 +17,29 @@
                         Offres
                     </x-nav-link>
 
+                    <x-nav-link :href="route('network.index')" :active="request()->routeIs('network.*')">
+                        Réseau
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.*')">
+                        Chat
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('quizzes.index')" :active="request()->routeIs('quizzes.*')">
+                        Quiz
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('interviews.index')" :active="request()->routeIs('interviews.*')">
+                        Entretiens
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.*')">
+                        Notifications ({{ Auth::user()->notifications()->whereNull('read_at')->count() }})
+                    </x-nav-link>
+
                     @role('Etudiant')
-                        <x-nav-link :href="route('student.profile')" :active="request()->routeIs('student.profile')">
-                            Profil etudiant
-                        </x-nav-link>
-                        <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
-                            Mes candidatures
+                        <x-nav-link :href="route('student.cv')" :active="request()->routeIs('student.cv')">
+                            CV Intelligent
                         </x-nav-link>
                         <x-nav-link :href="route('stages.index')" :active="request()->routeIs('stages.index')">
                             Mes stages
@@ -32,6 +49,15 @@
                     @role('Entreprise')
                         <x-nav-link :href="route('company.applications')" :active="request()->routeIs('company.applications')">
                             Candidatures
+                        </x-nav-link>
+                        <x-nav-link :href="route('stages.index')" :active="request()->routeIs('stages.index')">
+                            Suivi stages
+                        </x-nav-link>
+                    @endrole
+
+                    @role('Ecole')
+                        <x-nav-link :href="route('school.dashboard')" :active="request()->routeIs('school.dashboard')">
+                            Université
                         </x-nav-link>
                     @endrole
 

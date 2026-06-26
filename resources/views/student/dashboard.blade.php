@@ -5,29 +5,41 @@
         </h1>
 
         <!-- Statistiques -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-white shadow rounded p-6">
-                <h2 class="text-xl font-semibold">
-                    Nombre de candidatures
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">
+                    Candidatures envoyées
                 </h2>
-
-                <p class="text-3xl text-blue-600 mt-2">
+                <p class="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-2">
                     {{ $applicationsCount }}
                 </p>
             </div>
 
-            <div class="bg-white shadow rounded p-6">
-                <h2 class="text-xl font-semibold">
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">
+                    Entretiens obtenus
+                </h2>
+                <p class="text-3xl font-black text-blue-600 dark:text-blue-400 mt-2">
+                    {{ $interviewsCount }}
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">
+                    Taux de réussite
+                </h2>
+                <p class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-2">
+                    {{ $successRate }}%
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 shadow rounded-2xl p-6 border dark:border-gray-700">
+                <h2 class="text-xs uppercase tracking-wider font-bold text-gray-400">
                     Actions rapides
                 </h2>
-
-                <div class="mt-3 flex flex-wrap gap-3">
-                    <a href="{{ route('offers.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded">
-                        Voir les offres
-                    </a>
-                    <a href="{{ route('student.profile') }}" class="border px-4 py-2 rounded">
-                        Completer mon profil
-                    </a>
+                <div class="mt-2.5 flex flex-col gap-1.5 text-xs font-semibold text-indigo-600">
+                    <a href="{{ route('offers.index') }}" class="hover:underline">Voir les offres</a>
+                    <a href="{{ route('student.cv') }}" class="hover:underline">Gérer mon CV</a>
                 </div>
             </div>
         </div>

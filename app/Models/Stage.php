@@ -13,7 +13,17 @@ class Stage extends Model
         'status',
         'start_date',
         'end_date',
-        'report'
+        'report',
+        'jury_members',
+        'defense_date',
+        'final_grade'
+    ];
+
+    protected $casts = [
+        'defense_date' => 'datetime',
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'final_grade' => 'float'
     ];
 
     public function student()
@@ -37,5 +47,10 @@ class Stage extends Model
             User::class,
             'supervisor_id'
         );
+    }
+
+    public function weeklyReports()
+    {
+        return $this->hasMany(WeeklyReport::class);
     }
 }

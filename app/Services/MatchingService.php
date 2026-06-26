@@ -96,4 +96,62 @@ class MatchingService
 
         return $matchingSkills;
     }
+
+    /**
+     * Get missing skills required by the offer but not present in student profile
+     * 
+     * @param string|null $studentSkills
+     * @param string|null $offerSkills
+     * @return array
+     */
+    public static function getMissingSkills($studentSkills, $offerSkills)
+    {
+        if (empty($offerSkills)) {
+            return [];
+        }
+
+        $offerSkillsArray = self::parseSkills($offerSkills);
+        if (empty($studentSkills)) {
+            return $offerSkillsArray;
+        }
+
+        $studentSkillsArray = self::parseSkills($studentSkills);
+        $studentSkillsLower = array_map('strtolower', $studentSkillsArray);
+
+        $missingSkills = [];
+        foreach ($offerSkillsArray as $requiredSkill) {
+            if (!in_array(strtolower(trim($requiredSkill)), $studentSkillsLower)) {
+                $missingSkills[] = trim($requiredSkill);
+            }
+        }
+
+        return $missingSkills;
+    }
+
+    /**
+     * Generate dynamic tips/advice to improve student compatibility
+     * 
+     * @param string|null $studentSkills
+     * @param string|null $offerSkills
+     * @return array
+     */
+    public static function getAdvice($studentSkills, $offerSkills)
+    {
+        $missing = self::getMissingSkills($studentSkills, $offerSkills);
+        $advice = [];
+
+        if (empty($missing)) {
+            $advice[] = "Votre profil correspond parfaitement aux compétences attendues ! Mettez en avant vos projets associés lors de l'entretien.";
+            return $advice;
+        }
+
+        foreach ($missing as $skill) {
+            $advice[] = "Compétence manquante : ajoutez des expériences ou des certifications en **{$skill}** sur votre profil.";
+            $advice[] = "Réalisez un mini-projet intégrant **{$skill}** et ajoutez-le dans la section projets pour démontrer vos connaissances.";
+        }
+
+        $advice[] = "Pensez à passer les quiz techniques associés à ces compétences sur la plateforme pour obtenir un badge validant votre niveau.";
+
+        return $advice;
+    }
 }

@@ -19,6 +19,16 @@ class StudentDashboardController extends Controller
             $user->id
         )->count();
 
+        $acceptedCount = Application::where('user_id', $user->id)
+            ->where('status', 'Acceptee')
+            ->count();
+
+        $successRate = $applicationsCount > 0 ? (int)round(($acceptedCount / $applicationsCount) * 100) : 0;
+
+        $interviewsCount = \App\Models\Interview::whereHas('application', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->count();
+
         $applications = Application::with('offer')
             ->where('user_id', $user->id)
             ->latest()
@@ -43,6 +53,8 @@ class StudentDashboardController extends Controller
                 'user',
                 'student',
                 'applicationsCount',
+                'interviewsCount',
+                'successRate',
                 'applicationsWithMatching'
             )
         );

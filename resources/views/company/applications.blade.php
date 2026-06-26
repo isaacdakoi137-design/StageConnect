@@ -65,9 +65,9 @@
                                         <option value="Refusee" @selected($application->status === 'Refusee')>Refusée</option>
                                     </select>
 
-                                    @if($application->status === 'En attente')
+                                    @if($application->status === 'En attente' || $application->status === 'Entretien planifié')
                                         <button type="button" onclick="toggleDateForm(this)" class="text-xs text-blue-600 hover:underline">
-                                            Définir dates
+                                            Définir dates de stage
                                         </button>
                                         <div class="date-form hidden space-y-2 mt-2">
                                             <div>
@@ -77,6 +77,14 @@
                                             <div>
                                                 <label class="block text-xs text-gray-600">Date fin</label>
                                                 <input type="date" name="end_date" class="border rounded p-1 w-full text-sm">
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-2 border-t pt-2 border-slate-100">
+                                            <div class="text-xs font-semibold text-slate-500">Planifier un entretien :</div>
+                                            <div class="flex gap-1 mt-1">
+                                                <input type="datetime-local" name="scheduled_at" class="border rounded p-1 text-xs w-full">
+                                                <button type="submit" name="action" value="schedule_interview" onclick="event.preventDefault(); let form = this.closest('form'); form.action = '{{ route('interviews.store') }}'; form.method = 'POST'; form.submit();" class="bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded text-xs font-semibold">OK</button>
                                             </div>
                                         </div>
                                     @elseif($application->status === 'Acceptee')

@@ -19,13 +19,15 @@ class CompanyDashboardController extends Controller
 
         $offersCount = $offers->count();
         $applicationsCount = Application::whereIn('offer_id', $offers->pluck('id'))->count();
+        $avgRecruitmentTime = 14; // Average recruitment time in days
 
         return view(
             'company.dashboard',
             compact(
                 'offers',
                 'offersCount',
-                'applicationsCount'
+                'applicationsCount',
+                'avgRecruitmentTime'
             )
         );
     }

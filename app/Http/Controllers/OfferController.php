@@ -98,6 +98,9 @@ class OfferController extends Controller
         $matchPercentage = null;
         $matchingSkills = [];
 
+        $missingSkills = [];
+        $advice = [];
+
         if (Auth::check() && Auth::user()->hasRole('Etudiant')) {
             $student = Auth::user()->student;
             if ($student) {
@@ -109,9 +112,17 @@ class OfferController extends Controller
                     $student->skills,
                     $offer->required_skills
                 );
+                $missingSkills = MatchingService::getMissingSkills(
+                    $student->skills,
+                    $offer->required_skills
+                );
+                $advice = MatchingService::getAdvice(
+                    $student->skills,
+                    $offer->required_skills
+                );
             }
         }
 
-        return view('offers.show', compact('offer', 'student', 'matchPercentage', 'matchingSkills'));
+        return view('offers.show', compact('offer', 'student', 'matchPercentage', 'matchingSkills', 'missingSkills', 'advice'));
     }
 }

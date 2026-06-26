@@ -1,14 +1,14 @@
-<?php
+﻿<?php
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model; 
 
-class Application extends Model
+class Application extends Model  
 {
-    protected $fillable = [
+    protected $fillable = [    
         'user_id',
-        'offer_id',
+        'offer_id',       
         'message',
         'status'
     ];
